@@ -14,10 +14,7 @@
  */
 function isArray(value) {
     // YOUR CODE BELOW HERE //
-    
-    
-    
-    
+    return Array.isArray(value);
     // YOUR CODE ABOVE HERE //
 }
 
@@ -31,9 +28,15 @@ function isArray(value) {
  */
 function isObject(value) {
     // YOUR CODE BELOW HERE //
-    
-    
-    
+    if(typeof(value)=== 'object'){
+        if(!Array.isArray(value)){
+            if(value !== null){
+                if(typeof(value.getMonth) !== 'function')
+                return true;
+            }
+        }
+    }
+    return false;
     
     // YOUR CODE ABOVE HERE //
 }
@@ -46,10 +49,16 @@ function isObject(value) {
  */
 function isCollection(value) {
     // YOUR CODE BELOW HERE //
-    
-    
-    
-    
+    if(typeof(value)=== 'object'){
+        if(!Array.isArray(value)){
+            if(value !== null){
+                if(typeof(value.getMonth) !== 'function')
+                return true;
+            }
+        }
+    }
+    if(Array.isArray(value)) return true;
+    return false;
     // YOUR CODE ABOVE HERE //
 }
 
@@ -74,10 +83,15 @@ function isCollection(value) {
  */ 
 function typeOf(value) {
     // YOUR CODE BELOW HERE //
-    
-    
-    
-    
+    let str = typeof(value);
+    if(Array.isArray(value)){
+        str = 'array';
+    } else if(value === null){
+        str = 'null';
+    } else if(typeof(value.getMonth) === 'function'){
+        str = 'date';
+    }
+    return str;
     // YOUR CODE ABOVE HERE //
 }
 
