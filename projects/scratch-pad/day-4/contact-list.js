@@ -100,7 +100,7 @@ function makeContactList() {
                 list += `${contacts[key].nameFirst} ${contacts[key].nameLast}\n`;
             }
             // Return the list of names with the final newline break cut off the end
-            return list.slice(0, length - 1);
+            return list.slice(0, list.length - 1);
         },
         // we implemented the length api for you //
         length: function () {
