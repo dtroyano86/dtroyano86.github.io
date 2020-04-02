@@ -37,19 +37,73 @@
 
 // YOUR CODE GOES BELOW HERE //
 function makeContact(id, nameFirst, nameLast) {
-
-} 
+    /* Return an object that contains:  id set to the given id
+                                        nameFirst set to given nameFirst
+                                        nameLast set to given nameLast
+    */
+    return {
+        id: id,
+        nameFirst: nameFirst,
+        nameLast: nameLast
+    }
+}
 
 
 function makeContactList() {
-    /*
-     * You need something here to hold contacts. See length api for a hint:
-     */
-    var contacts;
-    
+    // Declare an empty array to hold the contacts
+    var contacts = [];
+    // Return an object full of methods
     return {
+        // Set addContact to an anonymous function that pushs a given contact onto the contacts array
+        addContact: (contact) => {
+            contacts.push(contact);
+        },
+        // Set findContact to an anonymous function that takes a fullName
+        findContact: (fullName) => {
+            // Split the fullName at the ' ' and take the first half to make fName
+            const fName = fullName.split(' ')[0];
+            // Split the fullName at the ' ' and take the second half to make lName
+            const lName = fullName.split(' ')[1];
+            // Declare the found variable to be defined if a match is found but leave it uninitalized
+            // So that it returns undefined if not found
+            let found;
+            // Run a for loop over the contacts array
+            for (let key in contacts) {
+                // If the current contact's first and last name match given ones
+                if (contacts[key].nameFirst === fName &&
+                    contacts[key].nameLast === lName) {
+                    // Save the current contact to the found variable
+                    found = contacts[key];
+                }
+            }
+            // Return the matching contact or undefined if it wasn't found
+            return found;
+        },
+        // Set removeContact to an anonymous function that takes a contact
+        removeContact: (contact) => {
+            // Run a for loop over the contacts array
+            for (let key in contacts) {
+                // If the current contact matches the given contact
+                if (contacts[key] === contact) {
+                    // Cut it out of the contacts array
+                    contacts.splice(key, 1);
+                }
+            }
+        },
+        // Set printAllContactNames to an anonymous function that takes no parameters
+        printAllContactNames: () => {
+            // Declare an empty list to hold all the names
+            let list = '';
+            // Run a for loop over the contacts array
+            for (let key in contacts) {
+                // Concate each first and last name to the list with a newline break at the end
+                list += `${contacts[key].nameFirst} ${contacts[key].nameLast}\n`;
+            }
+            // Return the list of names with the final newline break cut off the end
+            return list.slice(0, length - 1);
+        },
         // we implemented the length api for you //
-        length: function() {
+        length: function () {
             return contacts.length;
         }
     }
@@ -64,8 +118,8 @@ function makeContactList() {
 
 
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
-if((typeof process !== 'undefined') &&
-(typeof process.versions.node !== 'undefined')) {
+if ((typeof process !== 'undefined') &&
+    (typeof process.versions.node !== 'undefined')) {
     // here, export any references you need for tests //
     module.exports.makeContact = makeContact;
     module.exports.makeContactList = makeContactList;

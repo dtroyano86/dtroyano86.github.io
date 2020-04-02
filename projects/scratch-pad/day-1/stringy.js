@@ -14,9 +14,8 @@
  */
 function length(string) {
     // YOUR CODE BELOW HERE //
-    return string.length;       // Length returns the length of the string 
-
-
+    // Length returns the length of the string 
+    return string.length;
     // YOUR CODE ABOVE HERE //
 }
 
@@ -25,9 +24,8 @@ function length(string) {
  */
 function toLowerCase(string) {
     // YOUR CODE BELOW HERE //
-    return string.toLowerCase();    // toLowerCase sets the string to lower case
-
-
+    // toLowerCase sets the string to lower case
+    return string.toLowerCase();
     // YOUR CODE ABOVE HERE //
 }
 
@@ -36,9 +34,8 @@ function toLowerCase(string) {
  */
 function toUpperCase(string) {
     // YOUR CODE BELOW HERE //
-    return string.toUpperCase();    // toUpperCase sets the string to upper case
-
-
+    // toUpperCase sets the string to upper case
+    return string.toUpperCase();
     // YOUR CODE ABOVE HERE //
 }
 
@@ -57,9 +54,8 @@ function toUpperCase(string) {
  */
 function toDashCase(string) {
     // YOUR CODE BELOW HERE //
-    
-    return string.toLowerCase().split(' ').join('-');   // Set the string to lower case, than split it at any spaces, than join the split strings with a -
-
+    // Set the string to lower case, than split it at any spaces, than join the split strings with a -
+    return string.toLowerCase().split(' ').join('-');
     // YOUR CODE ABOVE HERE //
 }
 
@@ -77,13 +73,14 @@ function toDashCase(string) {
  */
 function beginsWith(string, char) {
     // YOUR CODE BELOW HERE //
-    if (string[0].toLowerCase() === char.toLowerCase()){    // Check if the 1st character of the string equals the given char and make sure they are both lower case just in case 
-        return true;                                        // Return true if they are equal
+    // Check if the 1st character of the string equals the given char and make sure they are both lower case just in case 
+    if (string[0].toLowerCase() === char.toLowerCase()) {
+        // Return true if they are equal
+        return true;
     } else {
-        return false;                                       // Otherwise return false
+        // Otherwise return false
+        return false;
     }
-    
-
     // YOUR CODE ABOVE HERE //
 }
 
@@ -101,13 +98,14 @@ function beginsWith(string, char) {
  */
 function endsWith(string, char) {
     // YOUR CODE BELOW HERE //
-    if(string[string.length-1].toLowerCase() === char.toLowerCase()){   // Use Length to check if the lowercase last character of the string equals a lowercase submitted char
-        return true;                                                    // Return true if they are equal
+    // Use Length to check if the lowercase last character of the string equals a lowercase submitted char
+    if (string[string.length - 1].toLowerCase() === char.toLowerCase()) {
+        // Return true if they are equal   
+        return true;
     } else {
-        return false;                                                   // Otherwise return false
+        // Otherwise return false
+        return false;
     }
-
-
     // YOUR CODE ABOVE HERE //
 }
 
@@ -118,9 +116,8 @@ function endsWith(string, char) {
  */
 function concat(stringOne, stringTwo) {
     // YOUR CODE BELOW HERE //
-    return stringOne + stringTwo;   // Use + to concatenate two strings
-
-
+    // Use + to concatenate two strings
+    return stringOne + stringTwo;
     // YOUR CODE ABOVE HERE //
 }
 
@@ -136,9 +133,10 @@ function concat(stringOne, stringTwo) {
  */
 function join(stringOne, stringTwo) {
     // YOUR CODE BELOW HERE //
-    var args = Array.from(arguments);   // Form an array from all the given arguments
-    return args.join('');               // Join all the string in the array with no whitespace
-
+    // Form an array from all the given arguments
+    var args = Array.from(arguments);
+    // Join all the string in the array with no whitespace
+    return args.join('');
     // YOUR CODE ABOVE HERE //
 }
 
@@ -153,13 +151,14 @@ function join(stringOne, stringTwo) {
  */
 function longest(stringOne, stringTwo) {
     // YOUR CODE BELOW HERE //
-    if(stringOne.length > stringTwo.length){    // Check if the stringOne is longer than stringTwo
-        return stringOne;                       // return stringOne if true
+    // Check if the stringOne is longer than stringTwo
+    if (stringOne.length > stringTwo.length) {
+        // return stringOne if true  
+        return stringOne;
     } else {
-        return stringTwo;                       // Otherwise return stringTwo
+        // Otherwise return stringTwo
+        return stringTwo;
     }
-
-
     // YOUR CODE ABOVE HERE //
 }
 
@@ -172,15 +171,18 @@ function longest(stringOne, stringTwo) {
  */
 function sortAscending(stringOne, stringTwo) {
     // YOUR CODE BELOW HERE //
-    if(stringOne === stringTwo){        // Check if the strings are equal
-        return 0;                       // Return 0 if true, otherwise
-    } else if(stringOne < stringTwo){   // check if stringOne is higher in alphabetical order
-        return 1;                       // Return 1 if true, otherwise
+    // Check if the strings are equal
+    if (stringOne === stringTwo) {
+        // Return 0 if true, otherwise  
+        return 0;
+        // check if stringOne is higher in alphabetical order 
+    } else if (stringOne < stringTwo) {
+        // Return 1 if true
+        return 1;
     } else {
-        return -1;                      // Return -1
+        // Otherwise Return -1
+        return -1;
     }
-
-
     // YOUR CODE ABOVE HERE //
 }
 
@@ -194,22 +196,24 @@ function sortAscending(stringOne, stringTwo) {
  */
 function sortDescending(stringOne, stringTwo) {
     // YOUR CODE BELOW HERE //
-    if (stringOne === stringTwo){       // Check if the strings are equal
-        return 0;                       // Return 0 if true, otherwise
-    } else if (stringOne < stringTwo){  // Check is stringTwo is lower in alphabetical order
-        return -1;                      // Return -1 if true, otherwise
+    // Check if the strings are equal
+    if (stringOne === stringTwo) {
+        // Return 0 if true, otherwise 
+        return 0;
+        // Check is stringTwo is lower in alphabetical order
+    } else if (stringOne < stringTwo) {
+        // Return -1 if true
+        return -1;
     } else {
-        return 1;                       // Return 1
+        // Otherwise Return 1
+        return 1;
     }
-
-
-
     // YOUR CODE ABOVE HERE //
 }
 
 
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
-if((typeof process !== 'undefined') &&
+if ((typeof process !== 'undefined') &&
     (typeof process.versions.node !== 'undefined')) {
     // here, export any references you need for tests //
     module.exports.length = length;

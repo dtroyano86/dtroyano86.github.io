@@ -14,9 +14,8 @@
  */
 function print(value) {
   // YOUR CODE BELOW HERE //
+  // Log the given value to the console
   console.log(value);
-  
-  
   // YOUR CODE ABOVE HERE //
 }
 
@@ -26,8 +25,8 @@ function print(value) {
 
 
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
-if((typeof process !== 'undefined') &&
-    (typeof process.versions.node !== 'undefined')) {
-    // here, export any references you need for tests //
-    module.exports.print = print;
+if ((typeof process !== 'undefined') &&
+  (typeof process.versions.node !== 'undefined')) {
+  // here, export any references you need for tests //
+  module.exports.print = print;
 }

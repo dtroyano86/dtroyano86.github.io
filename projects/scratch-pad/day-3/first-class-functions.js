@@ -13,6 +13,7 @@
  */
 function createGreaterThanFilter(base) {
     // YOUR CODE BELOW HERE //
+    // Return an anonymous function that checks if the given value is greater than the base value
     return (value) => { return base < value; }
     // YOUR CODE ABOVE HERE //
 }
@@ -24,6 +25,7 @@ function createGreaterThanFilter(base) {
  */
 function createLessThanFilter(base) {
     // YOUR CODE BELOW HERE //
+    // Return an anonymous function that checks if the given value is less than the base value
     return (value) => { return base > value; }
     // YOUR CODE ABOVE HERE //
 }
@@ -35,6 +37,8 @@ function createLessThanFilter(base) {
  */
 function createStartsWithFilter(startsWith) {
     // YOUR CODE BELOW HERE //
+    // Return an anonymous function that checks if the given string starts with the startsWith character
+    // Making sure to make them both lowercase to make sure they are case insensitive 
     return (str) => { return str[0].toLowerCase() === startsWith.toLowerCase(); }
     // YOUR CODE ABOVE HERE //
 }
@@ -46,6 +50,8 @@ function createStartsWithFilter(startsWith) {
  */
 function createEndsWithFilter(endsWith) {
     // YOUR CODE BELOW HERE //
+    // Return an anonymous function that checks if the given string ends with the endsWith character
+    // Making sure to make them both lowercase to make sure they are case insensitive 
     return (str) => { return str[str.length - 1].toLowerCase() === endsWith.toLowerCase(); }
     // YOUR CODE ABOVE HERE //
 }
@@ -59,10 +65,14 @@ function createEndsWithFilter(endsWith) {
  */
 function modifyStrings(strings, modify) {
     // YOUR CODE BELOW HERE //
+    // Declare an empty array to add the results to later
     let arr = [];
-    for(let key in strings){
+    // Start a for loop running over the given strings array
+    for (let key in strings) {
+        // Modify the current string with the given modify function and push the result to the array
         arr.push(modify(strings[key]));
     }
+    // Return the array
     return arr;
     // YOUR CODE ABOVE HERE //
 }
@@ -78,18 +88,23 @@ function modifyStrings(strings, modify) {
  */
 function allStringsPass(strings, test) {
     // YOUR CODE BELOW HERE //
+    // Set the check to be true so that any single test failing will cause it to fail
     let check = true;
-    for(let key in strings){
-        if(!test(strings[key])){
+    // Start a for loop over the given strings array
+    for (let key in strings) {
+        // Check to see if the current string fails the given test function
+        if (!test(strings[key])) {
+            // If it does set check to false
             check = false;
         }
     }
+    // Return check
     return check;
     // YOUR CODE ABOVE HERE //
 }
 
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
-if((typeof process !== 'undefined') &&
+if ((typeof process !== 'undefined') &&
     (typeof process.versions.node !== 'undefined')) {
     // here, export any references you need for tests //
     module.exports.createGreaterThanFilter = createGreaterThanFilter;
@@ -97,5 +112,5 @@ if((typeof process !== 'undefined') &&
     module.exports.createStartsWithFilter = createStartsWithFilter;
     module.exports.createEndsWithFilter = createEndsWithFilter;
     module.exports.modifyStrings = modifyStrings;
-    module.exports.allStringsPass = allStringsPass;   
+    module.exports.allStringsPass = allStringsPass;
 }

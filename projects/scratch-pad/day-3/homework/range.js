@@ -23,16 +23,25 @@
  */
 function range(start, end) {
     // YOUR CODE GOES BELOW HERE //
+    // Declare an empty array to add the results to
     let arr = [];
-    if(start < end){
-        for(let i = start; i <= end; i++){
+    // Determine if we are running forward or backward
+    // If start is less than end
+    if (start < end) {
+        // Start a for loop running from start to end
+        for (let i = start; i <= end; i++) {
+            // Add each current number to the array
             arr.push(i);
         }
+        // If end is less than start
     } else {
-        for(let i = start; i >= end; i--){
+        // Start a for loop running from start to end but subtracting
+        for (let i = start; i >= end; i--) {
+            // Add each current number to the array
             arr.push(i);
         }
     }
+    // Return the array
     return arr;
     // YOUR CODE GOES ABOVE HERE //
 }
@@ -42,8 +51,8 @@ function range(start, end) {
 
 
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
-if((typeof process !== 'undefined') &&
-   (typeof process.versions.node !== 'undefined')) {
+if ((typeof process !== 'undefined') &&
+    (typeof process.versions.node !== 'undefined')) {
     // here, export any references you need for tests //
     module.exports.range = range;
 }

@@ -20,14 +20,17 @@
  */
 
 function reverseString(input) {
-    // YOUR CODE GOES BELOW HERE //
-    var newString = '';                         // Declare a new empty string to generate the reverse string in
-    for(var i = input.length-1; i >= 0; i--){   // Start a For loop working backwards from the length of the inital string
-      newString += input[i];                    // Add the current character to the newString
-    }
-    return newString;                           // Return the reversed string
-    
-    // YOUR CODE GOES ABOVE HERE //
+  // YOUR CODE GOES BELOW HERE //
+  // Declare a new empty string to generate the reverse string in
+  var newString = '';
+  // Start a For loop working backwards from the length of the inital string
+  for (var i = input.length - 1; i >= 0; i--) {
+    // Add the current character to the newString
+    newString += input[i];
+  }
+  // Return the reversed string
+  return newString;
+  // YOUR CODE GOES ABOVE HERE //
 }
 
 
