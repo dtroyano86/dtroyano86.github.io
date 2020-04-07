@@ -149,7 +149,8 @@ These Functions will pass in all needed parameters, meaning, we will not reach i
 This is called **data validation** and it's extremely important in web development!
  
 ## Step 5 - Break
-**Step back and think about how far you've come!!** We are doing really hard stuff and if you've gotten here, you get it! This is awesome! It means you are well on your way to becoming a **pro web developer**. SWEET!
+**Step back and think about how far you've come!!** We are doing really hard stuff and if you've gotten here, you get it! This is awesome! It means you are well
+on your way to becoming a **pro web developer**. SWEET!
 
 # Part 3
 **Test and submit your work**
