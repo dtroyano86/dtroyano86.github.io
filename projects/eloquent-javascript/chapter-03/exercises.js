@@ -1,33 +1,73 @@
 ////////////////////////////////////////////////////////////////////////////////
 // min /////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-function min() {
-
+/*
+* Define a function called min that takes two numbers a and b
+*/
+function min(a, b) {
+  // If a is less than b return a
+  if (a < b) return a;
+  // Otherwise return b
+  return b;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // isEven //////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-function isEven() {
-
+/*
+* Define a function that determines if a number is even with recursion
+*/
+function isEven(num) {
+  // If the number is 0 it is even
+  if (num === 0) {
+    return true;
+    // If the number is 1 it is odd
+  } else if (num === 1) {
+    return false;
+  }
+  // If the number is above 0 subtract 2 and run the function again
+  if (num > 0) {
+    return isEven(num - 2);
+    // If the number is below 0 add 2 and run the function again
+  } else {
+    return isEven(num + 2);
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // countChars //////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-function countChars() {
-
+/*
+* Define a function that returns the number of times a given character shows in a given string
+*/
+function countChars(str, char) {
+  // Set a counter to 0
+  let cnt = 0;
+  // Run a for loop over the length of the string
+  for (let i = 0; i < str.length; i++) {
+    // If the current character equals the given character increment the count
+    if (str[i] === char) cnt++;
+  }
+  // Return the count
+  return cnt;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // countBs /////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-function countBs() {
-
+/*
+* Define a function that returns the number of uppercase Bs in a given string
+*/
+function countBs(str) {
+  // Set a counter to 0
+  let cnt = 0;
+  // Run a loop over the length of the given string
+  for (let i = 0; i < str.length; i++) {
+    // If the current character is a B increment the count
+    if (str[i] === 'B') cnt++;
+  }
+  // Return the count
+  return cnt;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
