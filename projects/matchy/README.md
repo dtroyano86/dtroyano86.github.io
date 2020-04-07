@@ -92,7 +92,8 @@ It's super important to give your brain and yourself a rest when you can! Grab a
 
 ## Step 7 - Making Friends
 
-Imagine that our website has a profile page for each animal. On this profile page we can see a list of each animal's friend on the website. Just like how people have a list of friends or followers on facebook or instagram. What would be a good data structure to hold this list of friends?
+Imagine that our website has a profile page for each animal. On this profile page we can see a list of each animal's friend on the website.
+Just like how people have a list of friends or followers on facebook or instagram. What would be a good data structure to hold this list of friends?
 
  1. [ ] Choose a data structure for this **list** of friends.
  2. [ ] Write a comment in your code that explains why you chose this data structure.
