@@ -10,17 +10,19 @@
 *
 * 2. The + operator will concate two strings together.
 *
-* 3. The slice method will return a section of a string given a starting index and continue until
+* 3. You can also use the += operator to concate two strings and assign it in the same step
+*
+* 4. The slice method will return a section of a string given a starting index and continue until
 * the end of the string or an optional end index.
 *
-* 4. The split method will return an array of strings from the given string cut up at instances
+* 5. The split method will return an array of strings from the given string cut up at instances
 * of the provided string, up to an limited number of times optionally. The join method on an 
 * array is reverse of this. Joining the elements of an array with a given string.
 *
-* 5. toLowerCase and toUpperCase return a string with the case of the entire string altered in
+* 6. toLowerCase and toUpperCase return a string with the case of the entire string altered in
 * the given way.
 *
-* 6. trim returns a string with all the whitespace at the beginning and end removed.
+* 7. trim returns a string with all the whitespace at the beginning and end removed.
 */
 
 // 1. Comparision Operators //
@@ -33,13 +35,17 @@ console.log(a > b); // prints => false
 let c = a + b;
 console.log(c); //prints => aaaaab
 
-// 3. slice will return a string starting at the given index and continuing to the end //
+// 3. += operator concates the strings and assigns them to the variable to the left //
+c += a;
+console.log(c); //prints => aaaaabaaa
+
+// 4. slice will return a string starting at the given index and continuing to the end //
 let str = 'Washburne';
 console.log(str.slice(4));      // prints => burne
 // or stopping at a given index //
 console.log(str.slice(4, 6));   // prints => bu 
 
-// 4. split will return an array cut up by the given string //
+// 5. split will return an array cut up by the given string //
 let sent = 'The quick brown fox jumps over the lazy dog';
 console.log(sent.split(' '));
 // prints => [ 'The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog' ]
@@ -50,10 +56,10 @@ console.log(sent.split(' ', 3));
 let arr = sent.split(' ');
 console.log(arr.join(' ')); // prints => The quick brown fox jumps over the lazy dog
 
-// 5. toLowerCase and toUpperCase return a string entirely in the given case //
+// 6. toLowerCase and toUpperCase return a string entirely in the given case //
 console.log(str.toLowerCase);   // prints => washburne
 console.log(str.toUpperCase);   // prints => WASHBURNE
 
-// 6. trim returns a string with any whitespace removed from the beginning and end //
+// 7. trim returns a string with any whitespace removed from the beginning and end //
 let test = '    Hello       ';
 console.log(test.trim()); // prints => Hello

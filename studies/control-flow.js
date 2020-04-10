@@ -6,19 +6,26 @@
 * runs. These questions are run an if statement or a switch statement to determine what to do
 * next.
 *
-* 1. if statements can be read as if this is true, than do everything inside the {}.
+* 1. if statements can be read as if this is true, than do everything inside the {}. You can
+* use as many if statements one after another. However each one will check their condition in
+* a vacuum, with no regard to the other checks. 
 *
 * 2. else if is a continuation of an if statement. If the previous condition is false than
-* check this new condition and if it is true than do everthing inside this {}. In a list of
-* sequential if else statements, only the first one that is true will execute.
+* check this new condition and if it is true than do everthing inside this {}. Any number of
+* if else statements can be chained together, however only the first one that is true will 
+* execute. All the rest of them will be skipped.
 *
-* 3. else by itself is a final default statement for an if else statement. If every condition
-* before it is false, than do everything in the final {}.
+* 3. else by itself is a final default statement for an if else statement. There can only be
+* one else. And it will only execute if every condition before it is false.
 *
 * 4. Switch statements are very similar to an if else statement. At the start you provide an 
 * expression and than you check that against the provided case statements. If they are true,
 * than the code block will run until a break statement. Also they are always finished with a
-* default condition that will only run if all the other conditions fail.
+* default condition that will only run if all the other conditions fail. 
+*
+* 5. Typically you want to use a switch statement when a variable can have different values 
+* that you want to run different code blocks. Like in a state machine. However when to use
+* a switch statement versus an if block really comes down to readability.
 */
 
 // 1. favoriteColor is blue so the code block will run //
@@ -48,16 +55,43 @@ if (favoriteColor === 'yellow') {
 
 // 4. When favoriteColor is passed through the switch statement it will print Good choice //
 switch (favoriteColor) {
+    // favoriteColor isn't yellow so this block doesn't run
     case 'yellow':
         console.log('Gross');
         break;
+    // favoriteColor is blue so this case executes true and the block is run
     case 'blue':
+        // prints => Good Choice
         console.log('Good choice');
+        // Break stops us from continuing to run code
         break;
+    // favoriteColor isn't red so this block doesn't run
     case 'red':
         console.log('Bad choice');
         break;
+    // one of the case blocks was executed so the default statement doesn't run
     default:
         console.log('Indecisive huh?')
+        break;
+}
+
+// 5. An example of when to use a switch statement is to check user permissions //
+const currentUser = {
+    permissions: 'notLoggedIn'
+}
+
+// Check the value stored to currentUser permissions
+switch (currentUser.permissions) {
+    case 'admin':
+        //Give the user the ability to make changes to the data
+        break;
+    case 'loggedIn':
+        //Give the user the ability to see the data
+        break;
+    case 'notLoggedIn':
+        //Only display a log in page
+        break;
+    default:
+        //Only display a log in page like the notLoggedIn value
         break;
 }
