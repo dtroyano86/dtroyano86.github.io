@@ -20,7 +20,7 @@ var _ = {};
 *   _.identity(5) === 5
 *   _.identity({a: "b"}) === {a: "b"}
 */
-_.identity = function(value){
+_.identity = function (value) {
     return value;
 }
 
@@ -43,17 +43,24 @@ _.identity = function(value){
 * _.typeOf("javascript") -> "string"
 * _.typeOf([1,2,3]) -> "array"
 */
-_.typeOf = function(value){
-    let final = typeof(value);
-    if (final === 'object'){
-        if (Array.isArray(value)){
+_.typeOf = function (value) {
+    // Set the final variable to a string of the typeof the given value
+    let final = typeof (value);
+    // If final is object do more checks otherwise return final
+    if (final === 'object') {
+        // If the given value is an array change final to array
+        if (Array.isArray(value)) {
             final = 'array';
-        }else if (value === null){
-                final = 'null';
-        }else if(value instanceof Function){
+            // If the given value is null change final to null
+        } else if (value === null) {
+            final = 'null';
+            // If the given value is a Function change final to function
+        } else if (value instanceof Function) {
             final = 'function';
         }
+        // If it was none of those it can stay object
     }
+    // Return final
     return final;
 }
 
@@ -74,23 +81,31 @@ _.typeOf = function(value){
 *   _.first(["a", "b", "c"], 1) -> "a"
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
-_.first = function(arr, num){
-    if (Array.isArray(arr)){
-        if(typeof num ==='number'){
-            if (num === 1){
+_.first = function (arr, num) {
+    // Check arr is an array
+    if (Array.isArray(arr)) {
+        // Check num is a number
+        if (typeof num === 'number') {
+            // If num is 1 return the first entry in arr
+            if (num === 1) {
                 return arr[0];
             }
+            // Otherwise make an empty array
             let final = [];
-            for (let i = 0; i< num; i++){
-                if(arr[i] !== undefined){
+            // Loop over arr num times and push the current value into the new array
+            for (let i = 0; i < num; i++) {
+                if (arr[i] !== undefined) {
                     final.push(arr[i]);
                 }
             }
+            // Return the new array
             return final;
         }
-    return arr[0];
+        // If num isn't a number return 1st element of arr
+        return arr[0];
     }
-return [];
+    // If arr isn't an array return an empty array
+    return [];
 }
 
 
@@ -111,23 +126,31 @@ return [];
 *   _.last(["a", "b", "c"], 1) -> "c"
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
-_.last = function(arr, num){
-    if(Array.isArray(arr)){
-      if(typeof num ==='number'){
-            if (num === 1){
-                return arr[arr.length-1];
+_.last = function (arr, num) {
+    // Check arr is an array
+    if (Array.isArray(arr)) {
+        // Check num is a number
+        if (typeof num === 'number') {
+            // If num is 1 return the last entry in arr
+            if (num === 1) {
+                return arr[arr.length - 1];
             }
+            // Otherwise make an empty array
             let final = [];
-            for (let i = 1; i<= num; i++){
-                if(arr[arr.length-i] !== undefined){
-                    final.unshift(arr[arr.length-i]);
+            // Loop over arr num times and unshift the current value into the new array
+            for (let i = 1; i <= num; i++) {
+                if (arr[arr.length - i] !== undefined) {
+                    final.unshift(arr[arr.length - i]);
                 }
             }
+            // Return the new array
             return final;
         }
-    return arr[arr.length-1];
+        // If num isn't a number return last element of arr
+        return arr[arr.length - 1];
     }
-return [];
+    // If arr isn't an array return an empty array
+    return [];
 }
 
 /** _.indexOf
@@ -145,11 +168,15 @@ return [];
 *   _.indexOf(["a","b","c"], "c") -> 2
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
-_.indexOf = function(arr, value) {
-    for(let i = 0; i < arr.length; i++){
-        if(arr[i] === value){
+_.indexOf = function (arr, value) {
+    // Loop over arr
+    for (let i = 0; i < arr.length; i++) {
+        // If the current value equals the given value return the current index
+        if (arr[i] === value) {
             return i;
-        } else if(i === arr.length -1) {
+            // If we get to the last element without returning, return -1
+            // Because it wasn't found
+        } else if (i === arr.length - 1) {
             return -1;
         }
     }
@@ -170,8 +197,9 @@ _.indexOf = function(arr, value) {
 * Examples:
 *   _.contains([1,"two", 3.14], "two") -> true
 */
-_.contains = function(arr, value){
-    return (arr.indexOf(value) !== -1) ? true : false;  
+_.contains = function (arr, value) {
+    // If arr contains value return true, otherwise return false
+    return (arr.indexOf(value) !== -1) ? true : false;
 }
 
 /** _.each
@@ -189,17 +217,21 @@ _.contains = function(arr, value){
 *   _.each(["a","b","c"], function(e,i,a){ console.log(e)});
 *      -> should log "a" "b" "c" to the console
 */
-_.each = function(obj, func){
-    if(Array.isArray(obj)){
-        for(let i = 0; i < obj.length; i++){
+_.each = function (obj, func) {
+    // Check if obj is an array
+    if (Array.isArray(obj)) {
+        // Loop over the array feeding each element into given function
+        for (let i = 0; i < obj.length; i++) {
             func(obj[i], i, obj);
         }
+        // If obj is an object
     } else {
-        for(let key in obj){
+        // Loop over the object feeding each key into the given function
+        for (let key in obj) {
             func(obj[key], key, obj);
         }
     }
-    
+
 }
 
 /** _.unique
@@ -376,8 +408,8 @@ _.each = function(obj, func){
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-if((typeof process !== 'undefined') &&
-   (typeof process.versions.node !== 'undefined')) {
+if ((typeof process !== 'undefined') &&
+    (typeof process.versions.node !== 'undefined')) {
     // here, export any references you need for tests //
     module.exports = _;
 }
