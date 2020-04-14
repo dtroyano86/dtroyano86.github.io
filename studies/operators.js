@@ -87,6 +87,9 @@ console.log(typeof [2, 4, 5]);    //prints => object
 const isItTooColdOutside = (temp) => {
     // If the temp is greater than 60 return Nope. It's warm, otherwise Brrrr. It's too cold
     return temp > 60 ? "Nope. It's warm" : "Brrrr. It's too cold";
+    // To the left of the ? is the condition to evaluate.
+    // To the left of the : is what to run if true
+    // To the right of the : is what to run if false
 }
 isItTooColdOutside(69); // prints => Nope. It's warm
 isItTooColdOutside(45); // prints => Brrrr. It's too cold
