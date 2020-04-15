@@ -245,13 +245,13 @@ _.each = function (obj, func) {
 */
 
 // Takes in an array and filters out non unique values
-_.unique = function(arr){
+_.unique = function (arr) {
     // Initialize result array
     let result = [];
     // Loop through array checking for uniqueness
-    for(let i = 0; i < arr.length; i++){
+    for (let i = 0; i < arr.length; i++) {
         // Only include value if it is the first instance 
-        if(i === _.indexOf(arr,arr[i])){
+        if (i === _.indexOf(arr, arr[i])) {
             result.push(arr[i]);
         }
     }
@@ -277,13 +277,13 @@ _.unique = function(arr){
 */
 
 // Filters an array by a boolean returning function
-_.filter = function(arr, func){
+_.filter = function (arr, func) {
     // Initialize the result
     let result = [];
     // Loop through the array
-    for(let i = 0; i < arr.length; i++){
+    for (let i = 0; i < arr.length; i++) {
         // Only include results that the functions return a true(not truthy) value
-        if(func(arr[i], i, arr) === true){
+        if (func(arr[i], i, arr) === true) {
             result.push(arr[i]);
         }
     }
@@ -303,19 +303,19 @@ _.filter = function(arr, func){
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
 
-_.reject = function(arr, func){
+_.reject = function (arr, func) {
     // Initialize the result
     let result = [];
     // Initialize an array containing the true cases
     let filterArray = _.filter(arr, func);
     // Loop through the given array
-    for(let i = 0; i < arr.length; i++){
+    for (let i = 0; i < arr.length; i++) {
         // Only include results that the functions return a false(not falsy) value
-        if(!_.contains(filterArray,arr[i])){
+        if (!_.contains(filterArray, arr[i])) {
             result.push(arr[i]);
         }
     }
-    return result;    
+    return result;
 }
 
 /** _.partition
@@ -337,13 +337,13 @@ _.reject = function(arr, func){
 }
 */
 //splits an array into two arrays based on whether they pass a test
-_.partition = function(arr, func){  
+_.partition = function (arr, func) {
     // filter only returns elements that pass true for the test in the form of an array
-    return [ 
-        arr.filter(function(x, i){return func(x, i, arr);}),
+    return [
+        arr.filter(function (x, i) { return func(x, i, arr); }),
         //^top array returns array with values that DO pass test v bottom array returns array with values that DONT pass
         arr.filter((x, i) => !func(x, i, arr))
-        ];
+    ];
 }
 
 /** _.map
@@ -362,21 +362,21 @@ _.partition = function(arr, func){
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 // runs a function on every element of a collection and returns an array of the results
-_.map = function(coll, func){
+_.map = function (coll, func) {
     //initialize result array
     let result = [];
     //check if input collection is an array
-    if (Array.isArray(coll)){
-        for(let i = 0; i< coll.length; i++){
+    if (Array.isArray(coll)) {
+        for (let i = 0; i < coll.length; i++) {
             result.push(func(coll[i], i, coll));
         }
-    //if the input collection is an object, pass, key, property and object to the function    
-    }else {
-        for (let key in coll){
+        //if the input collection is an object, pass, key, property and object to the function    
+    } else {
+        for (let key in coll) {
             result.push(func(coll[key], key, coll));
         }
     }
-return result;
+    return result;
 }
 
 /** _.pluck
@@ -390,7 +390,7 @@ return result;
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 // returns an array filled with the values of each elements <property>, prop
-_.pluck = function(arr, prop){
+_.pluck = function (arr, prop) {
     // returns the results of the function that plucks out the <property>, prop
     return _.map(arr, (elem, id, coll) => elem[prop]);
 }
@@ -415,24 +415,24 @@ _.pluck = function(arr, prop){
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
 // checks to make sure every element in a given collection passes a true false test
-_.every = function(coll, func){
+_.every = function (coll, func) {
     //checks if test function is provided
-    if (func instanceof Function){
+    if (func instanceof Function) {
         //run the test on every element in the collection and returns false if one exception is found
-        for (let key in coll){
-            if (!func(coll[key], key, coll)){
+        for (let key in coll) {
+            if (!func(coll[key], key, coll)) {
                 return false;
             }
         }
-    // if test function is not provided, checks if no values are falsey, returns true if so    
-    }else{
-        for (let key in coll){
-            if(!coll[key]){
+        // if test function is not provided, checks if no values are falsey, returns true if so    
+    } else {
+        for (let key in coll) {
+            if (!coll[key]) {
                 return false;
             }
         }
-    }  
-return true;
+    }
+    return true;
 }
 /** _.some
 * Arguments:
@@ -454,24 +454,24 @@ return true;
 *   _.some([1,3,5], function(e){return e % 2 === 0}) -> false
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
-_.some =function(coll, func){
+_.some = function (coll, func) {
     //checks if test function is provided
-    if (func instanceof Function){
+    if (func instanceof Function) {
         //run the test on every element in the collection and returns true if any are true
-        for (let key in coll){
-            if (func(coll[key], key, coll)){
+        for (let key in coll) {
+            if (func(coll[key], key, coll)) {
                 return true;
             }
         }
-    // if test function is not provided, checks if any values are truey and returns true on first instance    
-    }else{
-        for (let key in coll){
-            if(coll[key]){
+        // if test function is not provided, checks if any values are truey and returns true on first instance    
+    } else {
+        for (let key in coll) {
+            if (coll[key]) {
                 return true;
             }
         }
-    }  
-return false;
+    }
+    return false;
 }
 
 
@@ -496,14 +496,14 @@ return false;
 */
 
 // Applies a transformation to each element in an arry using the results of the previous elements transformation as an input
-_.reduce = function(arr, func, seed){
+_.reduce = function (arr, func, seed) {
     // Initialize the first seed based off of input or the first element if no seed is given
     let prevResult = seed === undefined ? arr[0] : seed;
     // Loops through array starting on the first element if there is a seed or 2nd element if there is not a seed
-    for(let i = (seed === undefined ? 1 : 0); i < arr. length; i++){
+    for (let i = (seed === undefined ? 1 : 0); i < arr.length; i++) {
         prevResult = func(prevResult, arr[i], i);
         // Once the last element is reached, return the previous result
-        if(i === arr.length - 1){
+        if (i === arr.length - 1) {
             return prevResult;
         }
     }
@@ -533,7 +533,7 @@ _.reduce = function(arr, func, seed){
 //             objs[0][key] = objs[1][key];
 //         }
 //         objs.splice(1,1);
-        
+
 //         if(objs.length === 1){ 
 //           return objs[0]; 
 //         }
@@ -542,11 +542,11 @@ _.reduce = function(arr, func, seed){
 // }
 
 // Takes any number of objects and assigns all of the properties to the first object giving priority to the latest
-_.extend = function(...objs){
+_.extend = function (...objs) {
     // Loop through the array of objects starting on the second object
-    for(let i = 1; i < objs.length; i++){
+    for (let i = 1; i < objs.length; i++) {
         // Check all properties of each object
-        for(let key in objs[i]){
+        for (let key in objs[i]) {
             // Overwrite or add the property to the first object
             objs[0][key] = objs[i][key];
         }

@@ -6,9 +6,9 @@
 * runs. These questions are run an if statement or a switch statement to determine what to do
 * next.
 *
-* 1. if statements can be read as if this is true, than do everything inside the {}. You can
-* use as many if statements one after another. However each one will check their condition in
-* a vacuum, with no regard to the other checks. 
+* 1. if statements can be read as if this is true, than do everything inside the {}. An if 
+* statement is the first check in a conditional chain. Every statement chained after has to
+* be an else if statement or the final one can be an else statement. 
 *
 * 2. else if is a continuation of an if statement. If the previous condition is false than
 * check this new condition and if it is true than do everthing inside this {}. Any number of
