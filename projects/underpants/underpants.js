@@ -394,7 +394,6 @@ _.pluck = function(arr, prop){
     // returns the results of the function that plucks out the <property>, prop
     return _.map(arr, (elem, id, coll) => elem[prop]);
 }
-
 /** _.every
 * Arguments:
 *   1) A collection
@@ -415,8 +414,26 @@ _.pluck = function(arr, prop){
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
-
-
+// checks to make sure every element in a given collection passes a true false test
+_.every = function(coll, func){
+    //checks if test function is provided
+    if (func instanceof Function){
+        //run the test on every element in the collection and returns false if one exception is found
+        for (let key in coll){
+            if (!func(coll[key], key, coll)){
+                return false;
+            }
+        }
+    // if test function is not provided, checks if no values are falsey, returns true if so    
+    }else{
+        for (let key in coll){
+            if(!coll[key]){
+                return false;
+            }
+        }
+    }  
+return true;
+}
 /** _.some
 * Arguments:
 *   1) A collection
@@ -437,6 +454,26 @@ _.pluck = function(arr, prop){
 *   _.some([1,3,5], function(e){return e % 2 === 0}) -> false
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
+_.some =function(coll, func){
+    //checks if test function is provided
+    if (func instanceof Function){
+        //run the test on every element in the collection and returns true if any are true
+        for (let key in coll){
+            if (func(coll[key], key, coll)){
+                return true;
+            }
+        }
+    // if test function is not provided, checks if any values are truey and returns true on first instance    
+    }else{
+        for (let key in coll){
+            if(coll[key]){
+                return true;
+            }
+        }
+    }  
+return false;
+}
+
 
 
 /** _.reduce
@@ -458,6 +495,20 @@ _.pluck = function(arr, prop){
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+// Applies a transformation to each element in an arry using the results of the previous elements transformation as an input
+_.reduce = function(arr, func, seed){
+    // Initialize the first seed based off of input or the first element if no seed is given
+    let prevResult = seed === undefined ? arr[0] : seed;
+    // Loops through array starting on the first element if there is a seed or 2nd element if there is not a seed
+    for(let i = (seed === undefined ? 1 : 0); i < arr. length; i++){
+        prevResult = func(prevResult, arr[i], i);
+        // Once the last element is reached, return the previous result
+        if(i === arr.length - 1){
+            return prevResult;
+        }
+    }
+}
+
 
 /** _.extend
 * Arguments:
@@ -473,6 +524,35 @@ _.pluck = function(arr, prop){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+
+// _.extend = function (...objs){
+//     if (objs.length === 1){
+//         return objs[0];
+//     } else {
+//         for (let key in objs[1]){
+//             objs[0][key] = objs[1][key];
+//         }
+//         objs.splice(1,1);
+        
+//         if(objs.length === 1){ 
+//           return objs[0]; 
+//         }
+//         return _.extend(...objs);
+//     }
+// }
+
+// Takes any number of objects and assigns all of the properties to the first object giving priority to the latest
+_.extend = function(...objs){
+    // Loop through the array of objects starting on the second object
+    for(let i = 1; i < objs.length; i++){
+        // Check all properties of each object
+        for(let key in objs[i]){
+            // Overwrite or add the property to the first object
+            objs[0][key] = objs[i][key];
+        }
+    }
+    return objs[0];
+}
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
