@@ -171,6 +171,14 @@ var genderCount = (customers) => {
     }, {})
 };
 
+//Just for fun a condensed version of genderCount
+// var genderCount = (customer) => {
+//     return _.reduce(customers, (final, curr) => {
+//         final.hasOwnProperty(curr.gender) ? final[curr.gender]++ : final[curr.gender] = 1;
+//         return final;
+//     }, {});
+// }
+
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
