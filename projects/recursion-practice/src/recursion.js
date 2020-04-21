@@ -181,55 +181,73 @@ var compareStr = function (str1, str2) {
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
-var createArray = function (str) {
+var createArray = function(str){
+  // Base case
+  // Is length of string equal to zero?
+  if (str.length === 0) {
+    // Yes, so return zero
+    return [];
+  }
+  // Return array with a character of the string at each index . . .
+  // By adding character as an element of the array
+  // and concatenating with remaining characters in the string as array elements
+  return [str[0]].concat(createArray(str.substring(1)));
 };
-
 // 17. Reverse the order of an array
 var reverseArr = function (array) {
+  // Base case:  If array has no length, return empty array
+  // Recursive case:  concat last element of array with recursive call that removes last element of array
+  return !array.length ? [] : [array[array.length -1]].concat(reverseArr(array.slice(0, array.length - 1)));
 };
-
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
-var buildList = function (value, length) {
+var buildList = function(value, length) {
+  // Base case:  If the length equals 0, return empty array
+  // Recursive case:  Add given value into an array with recursive call that decrements the length
+  return length === 0 ? [] : [value].concat(buildList(value, length - 1));
 };
-
 // 19. Count the occurence of a value inside a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
-var countOccurrence = function (array, value) {
+var countOccurrence = function(array, value) {
+  // Base case:  If the array length is 0, return 0
+  if (!array.length) {
+    return 0;
+  }
+  // Recursive case: If zero index of array equals the value, return 1 plus the recursive call of countOccurences that removes current element
+  // Else return the recursive call of countOccurence that removes current element
+  return array[0] === value ? 1 + countOccurrence(array.slice(1), value) : countOccurrence(array.slice(1), value);
 };
-
 // 20. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
-var rMap = function (array, callback) {
+var rMap = function(array, callback) {
+  // Base case:  If the array is empty, return empty array
+  // Recursive case:  Return call with the callback function called on current element of array concated to the recursive call of map without first element
+  return !array.length ? [] : [callback(array[0])].concat(rMap(array.slice(1), callback));
 };
-
 // 21. Write a function that counts the number of times a key occurs in an object.
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countKeysInObj(testobj, 'r') // 1
 // countKeysInObj(testobj, 'e') // 2
-var countKeysInObj = function (obj, key) {
+var countKeysInObj = function(obj, key) {
 };
-
 // 22. Write a function that counts the number of times a value occurs in an object.
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countValuesInObj(testobj, 'r') // 2
 // countValuesInObj(testobj, 'e') // 1
-var countValuesInObj = function (obj, value) {
+var countValuesInObj = function(obj, value) {
 };
-
 // 23. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
-var replaceKeysInObj = function (obj, key, newKey) {
+var replaceKeysInObj = function(obj, key, newKey) {
 };
-
 // 24. Get the first n Fibonacci numbers.  In the Fibonacci Sequence, each subsequent
 // number is the sum of the previous two.
 // Example:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34.....
 // fibonacci(5);  // [0, 1, 1, 2, 3, 5]
 // Note:  The 0 is not counted.
-var fibonacci = function (n) {
+var fibonacci = function(n) {
 };
 
 // 25. Return the Fibonacci number located at index n of the Fibonacci sequence.
@@ -238,17 +256,30 @@ var fibonacci = function (n) {
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 var nthFibo = function (n) {
+  // Base Case: If n is negative return null
+  if(n < 0){
+    return null;
+  }
+  // Base Case: If n is less than 2 than return n
+  // Recursive Case: Return a recursive call of nthFibo with n-1 and add that with a call with n-2
+  return n < 2 ? n : nthFibo(n - 1) + nthFibo(n - 2);
 };
 
 // 26. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
 // capitalizedWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
 var capitalizeWords = function (input) {
+  // Base Case: If array is empty return []
+  // Recursive Case: Return the capitalized string and continue to call capitalizeWords recursively with the array sliced
+  return !input.length ? [] : [input[0].toUpperCase()].concat(capitalizeWords(input.slice(1)));
 };
 
 // 27. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car', 'poop', 'banana']); // ['Car', 'Poop', 'Banana']
 var capitalizeFirst = function (array) {
+  // Base Case: If array is empty return []
+  // Recursive Case: Return the first letter capitalized of each word and continue to call capitalizeFirst recursively with the first element removed
+  return !array.length ? [] : [array[0][0].toUpperCase() + array[0].slice(1)].concat(capitalizeFirst(array.slice(1)));
 };
 
 // 28. Return the sum of all even numbers in an object containing nested objects.
@@ -261,6 +292,8 @@ var capitalizeFirst = function (array) {
 // };
 // nestedEvenSum(obj1); // 10
 var nestedEvenSum = function (obj) {
+  
+  
 };
 
 // 29. Flatten an array containing nested arrays.
@@ -271,6 +304,19 @@ var flatten = function (arrays) {
 // 30. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {'p':1, 'o':2, 't':2, 'a':1}
 var letterTally = function (str, obj) {
+  // If obj is undefined create an object
+  if(typeof obj === 'undefined'){
+    obj = {};
+  }
+  // Base Case: if string.length equals 0 return {}
+  if(str.length === 0){
+    return obj;
+  }
+  // Check if the first letter of the string is a key in the object
+  // And if not add it to the object with a count of 1, else increment the count by 1
+  obj[str[0]] = (obj[str[0]] || 0) + 1;
+  // Recurvise Case: call letterTally with the first letter omitted and pass the object
+  return letterTally(str.slice(1), obj);
 };
 
 // 31. Eliminate consecutive duplicates in a list.  If the list contains repeated
@@ -279,6 +325,13 @@ var letterTally = function (str, obj) {
 // Example: compress([1, 2, 2, 3, 4, 4, 5, 5, 5]) // [1, 2, 3, 4, 5]
 // Example: compress([1, 2, 2, 3, 4, 4, 2, 5, 5, 5, 4, 4]) // [1, 2, 3, 4, 2, 5, 4]
 var compress = function (list) {
+  // Base Case: if list is empty return []
+  if(!list.length){
+    return [];
+  }
+  // Recursive Case: If the first element and the second element are equal do a recursive call with the tail end of the array
+  // Recursive Case: Otherwise add the first element to the array and concat the recursive call with the tail end of the array
+  return list[0] === list[1] ? compress(list.slice(1)) : [list[0]].concat(compress(list.slice(1)));
 };
 
 // 32. Augment every element in a list with a new value where each element is an array
