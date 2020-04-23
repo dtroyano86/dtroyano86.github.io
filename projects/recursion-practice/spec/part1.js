@@ -84,7 +84,7 @@
 
 
 
-    xdescribe('3. Sum Integers in Array', function() {
+    describe('3. Sum Integers in Array', function() {
 
       it('should return a number', function() {
         expect(typeof(arraySum([[1],[2,3],[[4]],5,6]))).to.eql('number');
@@ -402,7 +402,7 @@
 
 
 
-    xdescribe('11. Modulo', function() {
+    describe('11. Modulo', function() {
 
       it('should return a number', function() {
         expect(typeof(modulo(5,2))).to.equal('number');

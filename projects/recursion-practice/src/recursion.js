@@ -21,6 +21,12 @@ var sum = function (array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function (array) {
+  if(!array.length){ return 0; }
+  let curr = array[0];
+  if(Array.isArray(curr)){
+    curr = arraySum(curr);
+  }
+  return curr + arraySum(array.slice(1));
 };
 
 
@@ -130,6 +136,15 @@ var palindrome = function (string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function (x, y) {
+	let absX = Math.abs(x);
+	let absY = Math.abs(y);
+	if (absX < absY){
+		return x;
+	}
+	if(absX - absY < absY){ return x - y; }
+	if(absY === 0) { return NaN; }
+
+	return x > 0 ? modulo(absX - absY, absY) : -1 * modulo(absX - absY, absY);
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator  or
@@ -343,26 +358,165 @@ var augmentElements = function (array, aug) {
 // 33. Reduce a series of zeroes to a single 0.
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
-var minimizeZeroes = function (array) {
+var minimizeZeroes = function(array) {
+  // Base case:  if array is empty, return empty array
+  if (!array.length) {
+    return [];
+  }
+  // Recursive case:  if first and second array elements are zero, slice one off and do recursive call
+  // If not, add current character to recursive call
+  return array[0] === 0 && array[1] === 0 ? minimizeZeroes(array.slice(1)) : [array[0]].concat(minimizeZeroes(array.slice(1)));
 };
-
 // 34. Alternate the numbers in an array between positive and negative regardless of
 // their original sign.  The first number in the index always needs to be positive.
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
-var alternateSign = function (array) {
+var alternateSign = function(array) {
+  // Base case:  if array is empty, return empty array
+    if (!array.length) {
+    return [];
+  }
+  let last = array[array.length -1];
+  // Check if current number is positive or negative and transform appropriately
+  if (last >= 0) {
+    last = array.length % 2 === 0 ? last * -1 : last;
+  } else {
+    last = array.length % 2 === 0 ? last : last * -1;
+  }
+  // Reursive case:  Cut off last index and call alternateSign
+  return alternateSign(array.slice(0, array.length - 1)).concat([last]);
 };
-
 // 35. Given a string, return a string with digits converted to their word equivalent.
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
-var numToText = function (str) {
+var numToText = function(str) {
+  let index = str.search(/[0-9]/);
+  // Base case:  if no integers in the string, return the string
+  if (index === -1) {
+    return str;
+  }
+  let word;
+  // Switch case for changing numbers to words
+  switch (str[index]) {
+    case '0':
+      word = "zero";
+      break;
+    case '1':
+      word = "one";
+      break;
+    case '2':
+      word = "two";
+      break;
+    case '3':
+      word = "three";
+      break;
+    case '4':
+      word = "four";
+      break;
+    case '5':
+      word = "five";
+      break;
+    case '6':
+      word = "six";
+      break;
+    case '7':
+      word = "seven";
+      break;
+    case '8':
+      word = "eight";
+      break;
+    case '9':
+      word = "nine";
+  }
+  str = str.split("").splice(index, 1, word).join("");
+  console.log(str);
+  // Recursive case:  Call function numToText
+  // return numToText(str);
+  // return str.slice(0, index) + word + numToText(str.slice(index + 1));
+};// 33. Reduce a series of zeroes to a single 0.
+// minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
+// minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
+var minimizeZeroes = function(array) {
+  // Base case:  if array is empty, return empty array
+  if (!array.length) {
+    return [];
+  }
+  // Recursive case:  if first and second array elements are zero, slice one off and do recursive call
+  // If not, add current character to recursive call
+  return array[0] === 0 && array[1] === 0 ? minimizeZeroes(array.slice(1)) : [array[0]].concat(minimizeZeroes(array.slice(1)));
 };
+// 34. Alternate the numbers in an array between positive and negative regardless of
+// their original sign.  The first number in the index always needs to be positive.
+// alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
+// alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
+var alternateSign = function(array) {
+  // Base case:  if array is empty, return empty array
+    if (!array.length) {
+    return [];
+  }
+  let last = array[array.length -1];
+  // Check if current number is positive or negative and transform appropriately
+  if (last >= 0) {
+    last = array.length % 2 === 0 ? last * -1 : last;
+  } else {
+    last = array.length % 2 === 0 ? last : last * -1;
+  }
+  // Reursive case:  Cut off last index and call alternateSign
+  return alternateSign(array.slice(0, array.length - 1)).concat([last]);
+};
+// 35. Given a string, return a string with digits converted to their word equivalent.
+// Assume all numbers are single digits (less than 10).
+// numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
+var numToText = function(str) {
+  let index = str.search(/[0-9]/);
+  if (index === -1) {
+    return str;
+  }
+  let word;
+  // Switch case for changing numbers to words
+  switch (str[index]) {
+    case '0':
+      word = "zero";
+      break;
+    case '1':
+      word = "one";
+      break;
+    case '2':
+      word = "two";
+      break;
+    case '3':
+      word = "three";
+      break;
+    case '4':
+      word = "four";
+      break;
+    case '5':
+      word = "five";
+      break;
+    case '6':
+      word = "six";
+      break;
+    case '7':
+      word = "seven";
+      break;
+    case '8':
+      word = "eight";
+      break;
+    case '9':
+      word = "nine";
+  }
+  // Recursive case:  Call function numToText
+  // return numToText(str);
+  return str.slice(0, index) + word + numToText(str.slice(index + 1));
+};
+
+
 
 // *** EXTRA CREDIT ***
 
 // 36. Return the number of times a tag occurs in the DOM.
 var tagCount = function (tag, node) {
+  return window.document.getElementsByTagName(tag).length;
 };
 
 // 37. Write a function for binary search.
@@ -370,12 +524,59 @@ var tagCount = function (tag, node) {
 // console.log(binarySearch(5)) will return '5'
 
 var binarySearch = function (array, target, min, max) {
+  if(!array.length){ return null;}
+  if (array[0] === target){
+    return 0;
+  } else {
+    let final = binarySearch(array.slice(1), target);
+    if(final === null){
+      return null;
+    } else {
+      return 1 + final;
+    }
+  }
 };
 
 // 38. Write a merge sort function.
 // Sample array:  [34,7,23,32,5,62]
 // Sample output: [5,7,23,32,34,62]
-var mergeSort = function (array) {
+// var mergeSort = function (array) {
+//   console.log(array);
+//   if(array.length === 1){
+//     return array;
+//   }
+// 	let arrOne = mergeSort(array.slice(0, Math.floor(array.length/2)));
+// 	let arrTwo = mergeSort(array.slice(Math.floor(array.length/2), array.length));
+//   return arrOne[arrOne.length -1] < arrTwo[0] ? arrOne.concat(arrTwo) : arrTwo.concat(arrOne);
+// };
+// Base Case:  If the array is empty or only has one element, return the array
+var mergeSort = function(array) {
+  // Base Case:  If the array is empty or only has one element, return the array
+  if (array.length <= 1) {
+    return array;
+  }
+  // Calculate the middle index of the array
+  const middle = Math.floor(array.length / 2);
+  // Divide the array into left and right
+  const left = array.slice(0, middle);
+  const right = array.slice(middle);
+  // Recursive Case:  Use recursion to combine right and left arrays
+  return merge( mergeSort(left), mergeSort(right));
+  // Helper function to merge two arrays
+  function merge(leftArray, rightArray) {
+    let result = [];
+    // Loop through the arrays
+    while (0 < leftArray.length && 0 < rightArray.length) {
+      // Concatenate the element values into resulting array in order
+      // And increment the corresponding index accordingly
+      if (leftArray[0] < rightArray[0]) {
+        result.push(leftArray.shift());
+      } else {
+        result.push(rightArray.shift());
+      }
+    }
+    return result.concat(leftArray.concat(rightArray))
+  }
 };
 
 
