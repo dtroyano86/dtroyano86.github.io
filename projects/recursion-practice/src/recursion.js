@@ -21,9 +21,9 @@ var sum = function (array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function (array) {
-  if(!array.length){ return 0; }
+  if (!array.length) { return 0; }
   let curr = array[0];
-  if(Array.isArray(curr)){
+  if (Array.isArray(curr)) {
     curr = arraySum(curr);
   }
   return curr + arraySum(array.slice(1));
@@ -136,16 +136,17 @@ var palindrome = function (string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function (x, y) {
-	let absX = Math.abs(x);
-	let absY = Math.abs(y);
-	if (absX < absY){
-		return x;
-	}
-	if(absX - absY < absY){ return x - y; }
-	if(absY === 0) { return NaN; }
+  let absX = x > 0 ? x : -x;
+  let absY = y > 0 ? y : -y;
+  if (absX < absY) {
+    return x;
+  }
+  if (absX - absY < absY) { return x - y; }
+  if (absY === 0) { return NaN; }
 
-	return x > 0 ? modulo(absX - absY, absY) : -1 * modulo(absX - absY, absY);
+  return x > 0 ? modulo(absX - absY, absY) : -modulo(absX - absY, absY);
 };
+
 
 // 12. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
@@ -172,6 +173,16 @@ var multiply = function (x, y) {
 // 13. Write a function that divides two numbers without using the / operator  or
 // JavaScript's Math object.
 var divide = function (x, y) {
+  if (y === 0) { return NaN };
+  let absX = x > 0 ? x : -x;
+  let absY = y > 0 ? y : -y;
+  let num = absX - absY;
+  if (num === 0) {
+    return 1;
+  } else if (num < 0) {
+    return 0;
+  }
+  return 1 + divide(num, absY);
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers.  The GCD of two
@@ -180,6 +191,10 @@ var divide = function (x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function (x, y) {
+  if (x < 0 || y < 0) { return null; }
+  if (x === 0) { return y; }
+  if (y === 0) { return x; }
+  return gcd(y, x % y);
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -196,7 +211,7 @@ var compareStr = function (str1, str2) {
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
-var createArray = function(str){
+var createArray = function (str) {
   // Base case
   // Is length of string equal to zero?
   if (str.length === 0) {
@@ -212,12 +227,12 @@ var createArray = function(str){
 var reverseArr = function (array) {
   // Base case:  If array has no length, return empty array
   // Recursive case:  concat last element of array with recursive call that removes last element of array
-  return !array.length ? [] : [array[array.length -1]].concat(reverseArr(array.slice(0, array.length - 1)));
+  return !array.length ? [] : [array[array.length - 1]].concat(reverseArr(array.slice(0, array.length - 1)));
 };
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
-var buildList = function(value, length) {
+var buildList = function (value, length) {
   // Base case:  If the length equals 0, return empty array
   // Recursive case:  Add given value into an array with recursive call that decrements the length
   return length === 0 ? [] : [value].concat(buildList(value, length - 1));
@@ -225,7 +240,7 @@ var buildList = function(value, length) {
 // 19. Count the occurence of a value inside a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
-var countOccurrence = function(array, value) {
+var countOccurrence = function (array, value) {
   // Base case:  If the array length is 0, return 0
   if (!array.length) {
     return 0;
@@ -236,7 +251,7 @@ var countOccurrence = function(array, value) {
 };
 // 20. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
-var rMap = function(array, callback) {
+var rMap = function (array, callback) {
   // Base case:  If the array is empty, return empty array
   // Recursive case:  Return call with the callback function called on current element of array concated to the recursive call of map without first element
   return !array.length ? [] : [callback(array[0])].concat(rMap(array.slice(1), callback));
@@ -245,24 +260,64 @@ var rMap = function(array, callback) {
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countKeysInObj(testobj, 'r') // 1
 // countKeysInObj(testobj, 'e') // 2
-var countKeysInObj = function(obj, key) {
+var countKeysInObj = function (obj, key) {
+  let count = 0;
+  for (let currKey in obj) {
+    if (typeof obj[currKey] === 'object') {
+      count += countKeysInObj(obj[currKey], key);
+    }
+    if (currKey === key) {
+      count++;
+    }
+  }
+  return count;
 };
 // 22. Write a function that counts the number of times a value occurs in an object.
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countValuesInObj(testobj, 'r') // 2
 // countValuesInObj(testobj, 'e') // 1
-var countValuesInObj = function(obj, value) {
+var countValuesInObj = function (obj, value) {
+  let count = 0;
+  for (let key in obj) {
+    if (typeof obj[key] === 'object') {
+      count += countValuesInObj(obj[key], value);
+    }
+    if (obj[key] === value) {
+      count++;
+    }
+  }
+  return count;
 };
 // 23. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
-var replaceKeysInObj = function(obj, key, newKey) {
+var replaceKeysInObj = function (obj, key, newKey) {
+  for (let curKey in obj) {
+    if (typeof obj[curKey] === 'object') {
+      replaceKeysInObj(obj[curKey], key, newKey);
+    }
+    if (curKey === key) {
+      obj[newKey] = obj[curKey];
+      delete obj[curKey];
+    }
+  }
+  return obj;
 };
 // 24. Get the first n Fibonacci numbers.  In the Fibonacci Sequence, each subsequent
 // number is the sum of the previous two.
 // Example:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34.....
 // fibonacci(5);  // [0, 1, 1, 2, 3, 5]
 // Note:  The 0 is not counted.
-var fibonacci = function(n) {
+var fibonacci = function (n) {
+  // If n is less than or equal to 0 return null
+  if (n <= 0) { return null; }
+  // Base case: If we get to the bottom return an array of 0,1
+  if (n === 1) { return [0, 1] };
+  // Recursive Case: Decrement n and (eventually) get an array of numbers back
+  let sequence = fibonacci(n - 1);
+  // Add the last two numbers of the array together and push that onto the end of the sequence
+  sequence.push(sequence[sequence.length - 1] + sequence[sequence.length - 2]);
+  // Return the sequence
+  return sequence;
 };
 
 // 25. Return the Fibonacci number located at index n of the Fibonacci sequence.
@@ -272,7 +327,7 @@ var fibonacci = function(n) {
 // nthFibo(3); // 2
 var nthFibo = function (n) {
   // Base Case: If n is negative return null
-  if(n < 0){
+  if (n < 0) {
     return null;
   }
   // Base Case: If n is less than 2 than return n
@@ -307,24 +362,37 @@ var capitalizeFirst = function (array) {
 // };
 // nestedEvenSum(obj1); // 10
 var nestedEvenSum = function (obj) {
-  
-  
+  let count = 0;
+  for (let key in obj) {
+    if (typeof obj[key] === 'object') {
+      count += nestedEvenSum(obj[key]);
+    }
+    if (obj[key] % 2 === 0) {
+      count += obj[key];
+    }
+  }
+  return count;
+
 };
 
 // 29. Flatten an array containing nested arrays.
 // Example: flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
 var flatten = function (arrays) {
+  return arrays.reduce((final, curr) => {
+    final = final.concat(Array.isArray(curr) ? flatten(curr) : curr);
+    return final;
+  }, [])
 };
 
 // 30. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {'p':1, 'o':2, 't':2, 'a':1}
 var letterTally = function (str, obj) {
   // If obj is undefined create an object
-  if(typeof obj === 'undefined'){
+  if (typeof obj === 'undefined') {
     obj = {};
   }
   // Base Case: if string.length equals 0 return {}
-  if(str.length === 0){
+  if (str.length === 0) {
     return obj;
   }
   // Check if the first letter of the string is a key in the object
@@ -341,7 +409,7 @@ var letterTally = function (str, obj) {
 // Example: compress([1, 2, 2, 3, 4, 4, 2, 5, 5, 5, 4, 4]) // [1, 2, 3, 4, 2, 5, 4]
 var compress = function (list) {
   // Base Case: if list is empty return []
-  if(!list.length){
+  if (!list.length) {
     return [];
   }
   // Recursive Case: If the first element and the second element are equal do a recursive call with the tail end of the array
@@ -353,12 +421,21 @@ var compress = function (list) {
 // itself.
 // Example: augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
 var augmentElements = function (array, aug) {
+  if (!array.length) { return []; }
+  else if (array[0].length === 0) {
+
+    return [[aug]].concat(augmentElements(array.slice(1), aug));
+  } else {
+    array[0].push(aug);
+
+    return [array[0]].concat(augmentElements(array.slice(1), aug));
+  }
 };
 
 // 33. Reduce a series of zeroes to a single 0.
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
-var minimizeZeroes = function(array) {
+var minimizeZeroes = function (array) {
   // Base case:  if array is empty, return empty array
   if (!array.length) {
     return [];
@@ -371,12 +448,12 @@ var minimizeZeroes = function(array) {
 // their original sign.  The first number in the index always needs to be positive.
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
-var alternateSign = function(array) {
+var alternateSign = function (array) {
   // Base case:  if array is empty, return empty array
-    if (!array.length) {
+  if (!array.length) {
     return [];
   }
-  let last = array[array.length -1];
+  let last = array[array.length - 1];
   // Check if current number is positive or negative and transform appropriately
   if (last >= 0) {
     last = array.length % 2 === 0 ? last * -1 : last;
@@ -389,7 +466,7 @@ var alternateSign = function(array) {
 // 35. Given a string, return a string with digits converted to their word equivalent.
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
-var numToText = function(str) {
+var numToText = function (str) {
   let index = str.search(/[0-9]/);
   // Base case:  if no integers in the string, return the string
   if (index === -1) {
@@ -436,7 +513,7 @@ var numToText = function(str) {
 };// 33. Reduce a series of zeroes to a single 0.
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
-var minimizeZeroes = function(array) {
+var minimizeZeroes = function (array) {
   // Base case:  if array is empty, return empty array
   if (!array.length) {
     return [];
@@ -449,12 +526,12 @@ var minimizeZeroes = function(array) {
 // their original sign.  The first number in the index always needs to be positive.
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
-var alternateSign = function(array) {
+var alternateSign = function (array) {
   // Base case:  if array is empty, return empty array
-    if (!array.length) {
+  if (!array.length) {
     return [];
   }
-  let last = array[array.length -1];
+  let last = array[array.length - 1];
   // Check if current number is positive or negative and transform appropriately
   if (last >= 0) {
     last = array.length % 2 === 0 ? last * -1 : last;
@@ -467,7 +544,7 @@ var alternateSign = function(array) {
 // 35. Given a string, return a string with digits converted to their word equivalent.
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
-var numToText = function(str) {
+var numToText = function (str) {
   let index = str.search(/[0-9]/);
   if (index === -1) {
     return str;
@@ -524,12 +601,12 @@ var tagCount = function (tag, node) {
 // console.log(binarySearch(5)) will return '5'
 
 var binarySearch = function (array, target, min, max) {
-  if(!array.length){ return null;}
-  if (array[0] === target){
+  if (!array.length) { return null; }
+  if (array[0] === target) {
     return 0;
   } else {
     let final = binarySearch(array.slice(1), target);
-    if(final === null){
+    if (final === null) {
       return null;
     } else {
       return 1 + final;
@@ -550,7 +627,7 @@ var binarySearch = function (array, target, min, max) {
 //   return arrOne[arrOne.length -1] < arrTwo[0] ? arrOne.concat(arrTwo) : arrTwo.concat(arrOne);
 // };
 // Base Case:  If the array is empty or only has one element, return the array
-var mergeSort = function(array) {
+var mergeSort = function (array) {
   // Base Case:  If the array is empty or only has one element, return the array
   if (array.length <= 1) {
     return array;
@@ -561,7 +638,7 @@ var mergeSort = function(array) {
   const left = array.slice(0, middle);
   const right = array.slice(middle);
   // Recursive Case:  Use recursion to combine right and left arrays
-  return merge( mergeSort(left), mergeSort(right));
+  return merge(mergeSort(left), mergeSort(right));
   // Helper function to merge two arrays
   function merge(leftArray, rightArray) {
     let result = [];
